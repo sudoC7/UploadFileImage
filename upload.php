@@ -4,6 +4,7 @@
     if(isset($_POST['submit'])) {
         $file = $_FILES['file'];
         
+        // every information at image 
         $fileName = $_FILES['file']['name'];
         $fileFullPath = $_FILES['file']['full_path'];
         $fileType = $_FILES['file']['type'];
@@ -14,11 +15,14 @@
         $fileExt = explode('.', $fileName);
         $fileActualExt = strtolower(end($fileExt));
 
+        // extension from file 
         $allowed = array('jpg', 'jpeg', 'png', 'pdf');
 
+        
         if(in_array($fileActualExt, $allowed)) {
             if($fileError === 0) {
                 if($fileSize < 1000000) { 
+                    //creat a unique ID
                     $fileNameNew = uniqid('', true).".".$fileActualExt;
                     $fileDestination = 'upload/'.$fileNameNew;
                     move_uploaded_file($fileTmpName, $fileDestination);
